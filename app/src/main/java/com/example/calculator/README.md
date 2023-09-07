@@ -7,8 +7,8 @@ able to add decimals, take percentages, and clear the display on the top of the 
 
 The following **required** functionality is completed:
 
-* [ ] User sees 
-* [ ] User can ...
+* [ ] User sees a simple calculator display with number keys and basic operations
+* [ ] User can ... execute basic operations with numbers including addition, subtraction, multiplication, dividion, negation
 * [ ] ...
 * [ ] ...
 
@@ -22,7 +22,7 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='walkthrough.gif' title='Video Walkthrough' width='50%' alt='Video Walkthrough' />
+<img src='![img.png](img.png)walkthrough.gif' title='Video Walkthrough' width='50%' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

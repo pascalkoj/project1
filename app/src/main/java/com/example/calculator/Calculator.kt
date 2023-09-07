@@ -4,11 +4,11 @@ import android.widget.TextView
 
 class Calculator {
 
-    private var mainTextView: TextView? = null
     private var display = ""
     private var nums = ArrayList<Float>()
     private var ops = ArrayList<String>()
     private var clear = false
+    private var mainTextView: TextView? = null
     //private var currentOperator: String? = null
     //private var decimalClicked: Boolean = false
 
@@ -18,7 +18,7 @@ class Calculator {
         this.mainTextView = mainTextView
     }
 
-    private fun updateDisplay() {
+    fun updateDisplay() {
         mainTextView?.setText(display)
     }
 
@@ -98,13 +98,14 @@ class Calculator {
 
 
         var type = operator.toIntOrNull() //checks if user clicks a number or an operator number will returm int and opertor will return null
-        if (type == null){ //means user pressed an operator button
+        if (type == null) { //means user pressed an operator button
 
             //check to see what's stored already
             var checkDisplay = display.toFloatOrNull()
 
             if (checkDisplay == null){ //nothing in display
-                display = "invalid" }
+                println("invalid")
+                return  }
             else { // store in num array to keep track of nums pressed until = sign
                 nums.add(checkDisplay) }
 
@@ -121,8 +122,8 @@ class Calculator {
                     op = ops.removeLastOrNull()
                 }
 
-                if (operator != null){ //where we actually operate and print the result in display
-                    var executed = Apply(nums.get(0), nums.get(1), operator) //execute
+                if (op != null){ //where we actually operate and print the result in display
+                    var executed = apply(nums.get(0), nums.get(1), op) //execute
                     display = executed //change the display to the result
                     nums.clear() //clear the arrays so you can restart the math from scratch with each formula
                     ops.clear()
@@ -149,18 +150,18 @@ class Calculator {
 
 
 
-    fun Apply(num1: Float, num2: Float, operator: String): String {
+    fun apply(num1: Float, num2: Float, operator: String): String {
         var res = "invalid operator"
         if (operator == "+") {
-            res = (num1 + num2).toString()
+            res = (num1+num2).toString()
         }
-        if (operator == "-") {
-            res = (num1 - num2).toString()
+        else if (operator == "-") {
+            res = (num1-num2).toString()
         }
-        if (operator == "*") {
-            res = (num1 * num2).toString()
+        else if (operator == "*") {
+            res = (num1*num2).toString()
         }
-        if (operator == "/") {
+        else if (operator == "/") {
             res = if (num2.toInt() == 0) {
                 "Error"
             } else {
@@ -182,3 +183,7 @@ class Calculator {
         }
     }
 }
+
+
+
+
