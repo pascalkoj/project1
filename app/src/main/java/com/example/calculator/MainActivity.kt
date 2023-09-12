@@ -1,28 +1,41 @@
 package com.example.calculator
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 
-class MainActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        Calculator.Instance().SetMainDisplay(findViewById<TextView>(R.id.textView));
-        var constraintLayoutRoot = findViewById<ConstraintLayout>(R.id.root);
-        for (i in 0 until(constraintLayoutRoot.getChildCount())){
-            val child: View = constraintLayoutRoot.getChildAt(i)
-            if (child is Button){
-                child.setOnClickListener{
-                    Calculator.Instance().calculate(child.text.toString())
+class MainActivity : AppCompatActivity() {
+
+    fun setCallbacks(parent: ViewGroup) {
+        for (i in 0 until parent.childCount) {
+            val child = parent.getChildAt(i)
+            if (child is ViewGroup) {
+                setCallbacks(child)
+            } else {
+                if (child != null) {
+                    val child: View = parent.getChildAt(i)
+                    if (child is Button) {
+                        child.setOnClickListener {
+                            Calculator.Instance().PushOp(child.text.toString());
+                        }
+                    }
                 }
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        Calculator.Instance().SetMainDisplay(findViewById<TextView>(R.id.textView));
+        Calculator.Instance().DisplayUpdate()
+        var constraintLayoutRoot = findViewById<LinearLayout>(R.id.root);
+        setCallbacks(constraintLayoutRoot)
     }
 }
